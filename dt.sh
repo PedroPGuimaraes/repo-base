@@ -1,16 +1,15 @@
 #!/bin/bash
 
 # Verifica se os argumentos foram fornecidos corretamente
-if [ "$#" -ne 4 ]; then
-    echo "Uso: $0 <language> <server-url> <api-key> <project-id>"
+if [ "$#" -ne 3 ]; then
+    echo "Uso: $0 <language> <api-key> <project-id>"
     exit 1
 fi
 
 # Extrai os argumentos
-server_url=$1
-language=$2
-api_key=$3
-project_id=$4
+language=$1
+api_key=$2
+project_id=$3
 
 # Instalação do Node.js e npm
 sudo su
@@ -27,4 +26,4 @@ sudo apt install nodejs
 npm install -g @cyclonedx/cdxgen
 
 # Comando para gerar o SBOM
-cdxgen -t $language . --server-url "$server_url" --api-key $api_key --project-id $project_id
+cdxgen -t $language . --server-url https://sbom-api.4intelligence.com.br --api-key $api_key --project-id $project_id

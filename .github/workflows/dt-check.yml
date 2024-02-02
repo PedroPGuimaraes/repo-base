@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   generate-sbom:
+    name: Run cdxgen
     runs-on: ubuntu-latest
 
     steps:
@@ -18,4 +17,4 @@ jobs:
     - name: Run cdxgen
       run: |
           chmod +x dt.sh
-          ./dt.sh "Python" "${{ secrets.SECRET_OWASP_DT_SERVER_KEY }}" "${{ secrets.SECRET_OWASP_DT_KEY }}" "${{ secrets.SECRET_OWASP_DT_PROJECT_ID }}"
+          ./dt.sh Python ${{ secrets.SECRET_OWASP_DT_KEY }} ${{ secrets.SECRET_OWASP_DT_PROJECT_ID }}
