@@ -1,0 +1,21 @@
+name: Security Pipeline DT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Run cdxgen
+      run: |
+          chmod +x dt.sh
+          ./dt.sh "Python" "${{ secrets.SECRET_OWASP_DT_SERVER_KEY }}" "${{ secrets.SECRET_OWASP_DT_KEY }}" "${{ secrets.SECRET_OWASP_DT_PROJECT_ID }}"
